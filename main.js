@@ -1,4 +1,10 @@
-let contacts = []
+let contacts = [];
+let currentContact = {
+  id: "",
+  name: "",
+  phoneNumber: "",
+  emergencyContact: false,
+};
 
 /**
  * Called when submitting the new Contact Form
@@ -10,54 +16,93 @@ let contacts = []
  * *** push: resources/push.jpg
  */
 function addContact(event) {
-  
+  event.preventDefault();
+  let form = event.target;
+
+  let id = generateId();
+  let contact = form.name.value;
+  let phone = form.phoneNumber.value;
+  let emergency = form.emergencyContact.checked;
+
+  if (currentContact.name != contact) {
+    currentContact = {
+      id: id,
+      name: contact,
+      phoneNumber: phone,
+      emergencyContact: emergency,
+    };
+    contacts.push(currentContact);
+  }else if (currentContact.phoneNumber != phone) {
+    currentContact = {
+      id: id,
+      name: contact,
+      phoneNumber: phone,
+      emergencyContact: emergency,
+    };
+    contacts.push(currentContact);
+  }else if (currentContact.emergencyContact != emergency) {
+    currentContact = {
+      id: id,
+      name: contact,
+      phoneNumber: phone,
+      emergencyContact: emergency,
+    };
+    contacts.push(currentContact);
+  }
+  else{
+    alert('This contact already exists');
+  }
+
+  /*
+ let currentContact = {
+    id: generateId(),
+    contact: form.name.value,
+    phone: form.phoneNumber.value,
+    emergency: form.emergencyContact.checked
+  }
+*/
+
+  console.log(currentContact);
+  console.log(contacts);
+  saveContacts();
+  form.reset();
 }
 
 /**
  * Converts the contacts array to a JSON string then
- * Saves the string to localstorage at the key contacts 
+ * Saves the string to localstorage at the key contacts
  */
-function saveContacts() {
- 
-}
+function saveContacts() {}
 
 /**
  * Attempts to retrieve the contacts string from localstorage
  * then parses the JSON string into an array. Finally sets
  * the contacts array to the retrieved array
  */
-function loadContacts() {
-  
-}
+function loadContacts() {}
 
 /**
- * This function targets the contacts-list on the 
+ * This function targets the contacts-list on the
  * DOM and adds a new div element for each of the
  * contacts in the contacts array
  */
-function drawContacts() {
- 
-}
+function drawContacts() {}
 
 /**
  * This function is called with a contact id
- * and will use the id to find and remove the 
+ * and will use the id to find and remove the
  * contact by their id from the list of contacts
- * *** hints: 
+ * *** hints:
  * *** findIndex: resources/findIndex.jpg
  * *** splice: resources/splice.jpg
- * @param {string} contactId 
+ * @param {string} contactId
  */
-function removeContact(contactId) {
-}
+function removeContact(contactId) {}
 
 /**
  * Toggles the visibility of the AddContact Form
  */
-function toggleAddContactForm() {
-
-}
-
+function toggleAddContactForm() {}
 
 /**
  * Used to generate a random string id for mocked
@@ -65,9 +110,12 @@ function toggleAddContactForm() {
  * @returns {string}
  */
 function generateId() {
-  return Math.floor(Math.random() * 10000000) + "-" + Math.floor(Math.random() * 10000000)
+  return (
+    Math.floor(Math.random() * 10000000) +
+    "-" +
+    Math.floor(Math.random() * 10000000)
+  );
 }
 
-
-loadContacts()
-drawContacts()
+loadContacts();
+drawContacts();
